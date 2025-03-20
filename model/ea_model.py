@@ -11,6 +11,7 @@ from transformers import PreTrainedModel, PretrainedConfig,AutoConfig
 
 
 from .modeling_llama_kv import LlamaForCausalLM as KVLlamaForCausalLM
+from .modeling_qwen2_kv import Qwen2ForCausalLM as KVQwen2ForCausalLM
 from .utils import *
 from .kv_cache import initialize_past_key_values
 
@@ -94,9 +95,11 @@ class EaModel(nn.Module):
                 base_model_path, **kwargs
             )
         elif Type=='Qwen2ForCausalLM':
+            kwargs['device_map'] = "auto"
             base_model=KVQwen2ForCausalLM.from_pretrained(
                 base_model_path, **kwargs
             )
+            print('base_model device map', base_model.hf_device_map)
         else:
             base_model = KVMixtralForCausalLM.from_pretrained(
                 base_model_path, **kwargs

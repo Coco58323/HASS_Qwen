@@ -1,0 +1,3 @@
+mt_bench/
+*.pyc
+test.sh
